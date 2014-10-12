@@ -54,8 +54,8 @@ public class UsersController {
 	public void list() {
         result.include("users", userDao.listAll());
     }
-
 	
+	 	
 	
 	@Path("/users")
 	@Post

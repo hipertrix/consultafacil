@@ -4,6 +4,7 @@ import com.consultafacil.model.User;
 
 
 
+
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -22,6 +23,12 @@ public interface UserDao {
 	void update(User user);
 
 	List<User> listAll();
+	
+	List<User> listDoctors();
+	
+	List<User> listHelpers();
+	
+	List<User> listPatients();
 
 	boolean containsUserWithLogin(String login);
 

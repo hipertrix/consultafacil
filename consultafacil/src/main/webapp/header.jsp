@@ -1,6 +1,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%  
+request.setAttribute( "user_type", new String[]{"","Médico","Assistente","Paciente"} );  
+%>  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +15,11 @@
 	<meta name="keywords" content=" "/>
 
 	<title>Consulta Fácil</title>
-	<link href="<c:url value="/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css"/> 
 	
-	<script type="text/javascript" src="<c:url value='/js/jquery.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/bootstrap/js/bootstrap.min.js'/>"></script>	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>	
+      
+       
 	
     <!--[if lt IE 7]>
 	    <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" 
@@ -24,28 +29,69 @@
 <body>
     <c:set var="path"><c:url value="/"/></c:set>
 
+	 <c:if test="${not empty userInfo.user}">
 	 
-	
-	<div class="navbar navbar-default">
-		<div class="navbar-inner">
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="${path}"> Início</a></li>
-					<li><a href="${path}"> Sobre o Sistema</a></li>
-					<li>
-						<a href="${linkTo[UsersController].list}"> 
-							Usuários
-						</a>
-					</li> 
-				</ul>
-            
+	 
+	 <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
 
-				<span class="pull-right ${not empty userInfo.user ? '' : 'hidden'}">
-					${userInfo.user.name} (<a href="${linkTo[HomeController].logout}">Sair</a>)
-				</span>
-			</div>
-		</div>
-	</div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+							<li class="active"><a href="${linkTo[UsersController].home()}"><span class="glyphicon glyphicon-heart"></span> Consultas</a></li> 
+							<li><a href="#"><span class="glyphicon glyphicon-calendar"></span> Agenda</a></li>						
+							
+							<li class="dropdown">
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Cadastro
+						           <span class="caret"></span></a>
+						          <ul class="dropdown-menu" role="menu">
+						            <li><a href="${linkTo[DoctorsController].list}"> Médicos</a></li>
+						            <li><a href="${linkTo[PatientsController].list}"> Pacientes</a></li>
+						            <li><a href="${linkTo[HelpersController].list}"> Atendentes</a></li>						             
+						          </ul>
+						     </li>	 
+							</li> 
+						</ul>          
+		
+						<span class="pull-right ">
+							<ul class="nav navbar-nav"> 					        
+        					<li><a href=""> <strong>${user_type[userInfo.user.user_type]}</strong>
+        					 <span class="glyphicon glyphicon-user"></span> ${userInfo.user.name}</a></li>
+							<li><a href=""><span class="glyphicon glyphicon-cog"></span></a></li>
+							<li><a href="${linkTo[HomeController].logout}">Sair</a></li>
+						</ul>  
+						
+						 
+						</span>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+	  
+	
+	 </c:if>
+	
+	
+	<c:if test="${empty userInfo.user}">   	
+	 </c:if>
+	
+
+
+
+
+
+
 
 	 
     
@@ -65,4 +111,4 @@
 		</div>
 	</c:if>
 	
-	<div id="contentWrap">
+	<div id="contentWrap" class="container">

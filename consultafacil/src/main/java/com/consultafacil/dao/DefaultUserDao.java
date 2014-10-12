@@ -58,6 +58,24 @@ public class DefaultUserDao implements UserDao {
 	}
 	
 	@Override
+	public List<User> listDoctors() {
+		return entityManager.createQuery("select u from User u Where user_type = 1", User.class).getResultList();
+	}
+	
+	@Override
+	public List<User> listHelpers() {
+		return entityManager.createQuery("select u from User u Where user_type = 2", User.class).getResultList();
+	}
+	
+	
+	@Override
+	public List<User> listPatients() {
+		return entityManager.createQuery("select u from User u Where user_type = 3", User.class).getResultList();
+	}
+	
+	
+	
+	@Override
 	public boolean containsUserWithLogin(String login) {
 		Long count = entityManager
 				.createQuery("select count(u) from User u where u.login = :login", Long.class)

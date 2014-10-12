@@ -6,7 +6,9 @@
     <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">  
     <provider>org.hibernate.ejb.HibernatePersistence</provider>    
     
+		<class>com.consultafacil.model.Consult</class>
 		<class>com.consultafacil.model.User</class>
+		
         <properties>            
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />  
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/consultafacil" />  

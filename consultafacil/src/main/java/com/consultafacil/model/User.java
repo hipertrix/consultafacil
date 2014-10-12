@@ -3,12 +3,13 @@ package com.consultafacil.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern; 
 
 import java.io.Serializable; 
+
 
 
 
@@ -21,8 +22,12 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 4548298563023480676L;
 
-
-	@Id
+ 
+	@Id 
+	@GeneratedValue
+	private Long id;
+	
+	
 	@NotNull
 	@Length(min = 3, max = 20)
 	@Pattern(regexp = "[a-z0-9_]+", message = "{invalid_login}")
@@ -55,11 +60,19 @@ public class User implements Serializable {
 	private String blood_type;
 	private String allergic;
 	private Date created_at;
-	private String user_type;
+	private int user_type;
 	private int parent_id;
 	
 	
- 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	public String getLogin() {
 		return login;
 	}
@@ -162,10 +175,10 @@ public class User implements Serializable {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	public String getUser_type() {
+	public int getUser_type() {
 		return user_type;
 	}
-	public void setUser_type(String user_type) {
+	public void setUser_type(int user_type) {
 		this.user_type = user_type;
 	}
 	public int getParent_id() {
