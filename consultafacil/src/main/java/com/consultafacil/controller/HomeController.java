@@ -52,7 +52,7 @@ public class HomeController {
 
 		userInfo.login(currentUser);
 
-		result.redirectTo(UsersController.class).home();
+		result.redirectTo(ConsultsController.class).list();
 	}
 
 	
@@ -66,5 +66,7 @@ public class HomeController {
 	@Get
 	public void login() {
 	}
+
+ 
 
 }

@@ -1,5 +1,11 @@
 package com.consultafacil.controller;
 
+ 
+ 
+
+
+
+
 import javax.inject.Inject; 
 import javax.validation.Valid;
 
@@ -16,43 +22,43 @@ import com.consultafacil.model.User;
 import com.consultafacil.validation.LoginAvailable;
 
 @Controller
-public class DoctorsController {
+public class HelpersController {
 
 	private final Validator validator;
 	private final Result result;
 	private final UserDao userDao; 
 	
-		protected DoctorsController() {
+		protected HelpersController() {
 			this(null, null, null);
 		}
 	 		
 		@Inject
-		public DoctorsController(UserDao dao, Result result, Validator validator) {			
+		public HelpersController(UserDao dao, Result result, Validator validator) {			
 			this.userDao = dao;
 			this.result = result;
 			this.validator = validator; 
 		}
 		
-		@Get("/new_doctor")
-		public void new_doctor() { 
+		@Get("/new_helper")
+		public void new_helper() { 
 		}
 		
 		
-		@Get("/doctors")
+		@Get("/helpers")
 		public void list() { 
-			result.include("users", userDao.listDoctors());
+			result.include("users", userDao.listHelpers());
 	    }
 
 		
 		
 		
-		@Path("/doctors")
+		@Path("/helpers")
 		@Post
 		@Public
 		public void add(@Valid @LoginAvailable User user) {
 	        validator.onErrorUsePageOf(HomeController.class).login();
 	        
-	        user.setUser_type(1);
+	        user.setUser_type(2);
 	        
 			userDao.add(user);
 
@@ -61,12 +67,12 @@ public class DoctorsController {
 		}	
 		
 		
-		@Path("/doctors/{user.login}")
+		@Path("/helpers/{user.login}")
 		@Get
 		public void show(User user) {
 		    result.include("user", userDao.find(user.getLogin()));
 
-		    result.forwardTo("/WEB-INF/jsp/doctors/view.jsp");
+		    result.forwardTo("/WEB-INF/jsp/helpers/view.jsp");
 		    
 		}
 		
